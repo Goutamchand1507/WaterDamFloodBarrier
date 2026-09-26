@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Estimation History</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            background-color: #f4f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #6f42c1, #59359a);
+            color: white;
+            padding: 45px 20px;
+            border-radius: 0 0 25px 25px;
+        }
+
+        .page-icon {
+            font-size: 50px;
+        }
+
+        .history-card {
+            border: none;
+            border-radius: 18px;
+        }
+
+        .table-card {
+            border: none;
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .table th {
+            white-space: nowrap;
+        }
+
+        .empty-box {
+            background: white;
+            border-radius: 15px;
+            padding: 50px;
+        }
+
+        .cost {
+            font-weight: bold;
+            color: #198754;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand"
+            href="{% url 'home' %}"
+        >
+            🌊 Water Dam Flood Barrier
+        </a>
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+        >
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarMenu"
+        >
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'home' %}"
+                    >
+                        Home
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'estimation' %}"
+                    >
+                        New Estimation
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link active"
+                        href="{% url 'history' %}"
+                    >
+                        History
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'dashboard' %}"
+                    >
+                        Dashboard
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'projects' %}"
+                    >
+                        Projects
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'materials' %}"
+                    >
+                        Materials
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="/admin/"
+                    >
+                        Admin
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- PAGE HEADER -->
+
+<section class="page-header text-center">
+
+    <div class="container">
+
+        <div class="page-icon">
+            📋
+        </div>
+
+
+        <h1 class="fw-bold">
+            Estimation History
+        </h1>
+
+
+        <p class="mb-0">
+            View, search and manage previous flood barrier estimations.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- MAIN CONTENT -->
+
+<div class="container mt-5 mb-5">
+
+
+    <!-- SUCCESS MESSAGES -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-success alert-dismissible fade show">
+
+                {{ message }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+
+    <!-- SEARCH CARD -->
+
+    <div class="card history-card shadow-sm mb-4">
+
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <div>
+
+                    <h4 class="fw-bold mb-1">
+                        🔍 Search Estimations
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Search by project name or material.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form method="get">
+
+                <div class="row g-2">
+
+                    <div class="col-md-10">
+
+                        <input
+                            type="text"
+                            name="search"
+                            value="{{ search }}"
+                            class="form-control form-control-lg"
+                            placeholder="Search project or material..."
+                        >
+
+                    </div>
+
+
+                    <div class="col-md-2">
+
+                        <button
+                            type="submit"
+                            class="btn btn-dark btn-lg w-100"
+                        >
+                            Search
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ACTION BUTTONS -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h3 class="fw-bold mb-1">
+                Previous Estimations
+            </h3>
+
+            <p class="text-muted mb-0">
+                Review and manage your estimation records.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'estimation' %}"
+            class="btn btn-primary btn-lg"
+        >
+            ➕ New Estimation
+        </a>
+
+    </div>
+
+
+
+    {% if estimations %}
+
+
+    <!-- TABLE -->
+
+    <div class="card table-card shadow-sm">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Project</th>
+
+                        <th>Material</th>
+
+                        <th>Height</th>
+
+                        <th>Volume</th>
+
+                        <th>Material Quantity</th>
+
+                        <th>Total Cost</th>
+
+                        <th>Date</th>
+
+                        <th class="text-center">
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for estimation in estimations %}
+
+                    <tr>
+
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                {{ estimation.project.project_name }}
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+                                📍 {{ estimation.project.location }}
+                            </small>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="badge bg-secondary">
+
+                                {{ estimation.material.material_name }}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            {{ estimation.barrier_height|floatformat:2 }}
+                            m
+
+                        </td>
+
+
+                        <td>
+
+                            {{ estimation.barrier_volume|floatformat:2 }}
+                            m³
+
+                        </td>
+
+
+                        <td>
+
+                            {{ estimation.material_quantity|floatformat:2 }}
+
+                        </td>
+
+
+                        <td class="cost">
+
+                            ₹{{ estimation.total_cost|floatformat:2 }}
+
+                        </td>
+
+
+                        <td>
+
+                            <small>
+
+                                {{ estimation.created_date|date:"d M Y" }}
+
+                                <br>
+
+                                {{ estimation.created_date|date:"h:i A" }}
+
+                            </small>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="d-flex gap-1 justify-content-center flex-wrap">
+
+                                <a
+                                    href="{% url 'estimation_report' estimation.id %}"
+                                    class="btn btn-sm btn-primary"
+                                >
+                                    Report
+                                </a>
+
+
+                                <a
+                                    href="{% url 'edit_estimation' estimation.id %}"
+                                    class="btn btn-sm btn-warning"
+                                >
+                                    Edit
+                                </a>
+
+
+                                <a
+                                    href="{% url 'delete_estimation' estimation.id %}"
+                                    class="btn btn-sm btn-danger"
+                                >
+                                    Delete
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- NO RESULTS -->
+
+    <div class="empty-box text-center shadow-sm">
+
+        <div style="font-size: 60px;">
+            📋
+        </div>
+
+
+        <h3 class="mt-3">
+            No Estimations Found
+        </h3>
+
+
+        {% if search %}
+
+            <p class="text-muted">
+
+                No estimation matched:
+
+                <strong>
+                    {{ search }}
+                </strong>
+
+            </p>
+
+
+            <a
+                href="{% url 'history' %}"
+                class="btn btn-secondary"
+            >
+                Clear Search
+            </a>
+
+        {% else %}
+
+            <p class="text-muted">
+                No estimation records have been created yet.
+            </p>
+
+
+            <a
+                href="{% url 'estimation' %}"
+                class="btn btn-primary"
+            >
+                ➕ Create First Estimation
+            </a>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+
+
+    <!-- ENGINEERING NOTE -->
+
+    <div class="alert alert-info mt-5">
+
+        <strong>Engineering Note:</strong>
+
+        The estimations displayed here are preliminary
+        educational/planning estimates. Actual flood barrier
+        design should be verified through professional hydraulic
+        and structural engineering analysis.
+
+    </div>
+
+</div>
+
+
+
+<!-- FOOTER -->
+
+<footer class="bg-dark text-white text-center p-4">
+
+    <p class="mb-1 fw-bold">
+        Water Dam Flood Barrier Estimation System
+    </p>
+
+    <p class="mb-0">
+        MCA Academic Project | Python & Django
+    </p>
+
+</footer>
+
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>

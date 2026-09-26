@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Water Dam Flood Barrier Estimation System</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+        body {
+            background-color: #f4f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+            color: white;
+            padding: 70px 20px;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .feature-card {
+            border: none;
+            border-radius: 15px;
+            transition: 0.3s;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: #212529;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .footer {
+            background-color: #212529;
+            color: white;
+            padding: 25px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+
+        <a class="navbar-brand" href="{% url 'home' %}">
+            🌊 Water Dam Flood Barrier
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'home' %}">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'estimation' %}">
+                        New Estimation
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'history' %}">
+                        History
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'projects' %}">
+                        Projects
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'materials' %}">
+                        Materials
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/">
+                        Admin
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+
+<!-- HERO SECTION -->
+
+<section class="hero text-center">
+
+    <div class="container">
+
+        <div class="feature-icon">
+            🌊
+        </div>
+
+        <h1>
+            Water Dam Flood Barrier
+            <br>
+            Estimation System
+        </h1>
+
+        <p>
+            A web-based system for estimating flood barrier
+            dimensions, material requirements and preliminary
+            project costs.
+        </p>
+
+        <div class="mt-4">
+
+            <a
+                href="{% url 'estimation' %}"
+                class="btn btn-light btn-lg me-2"
+            >
+                📊 Create New Estimation
+            </a>
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="btn btn-outline-light btn-lg"
+            >
+                📈 View Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<div class="container mt-5">
+
+    <div class="text-center mb-4">
+
+        <h2 class="section-title">
+            System Features
+        </h2>
+
+        <p class="text-muted">
+            Manage flood barrier estimation activities from one place.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- ESTIMATION -->
+
+        <div class="col-md-4">
+
+            <div class="card feature-card shadow-sm text-center p-4">
+
+                <div class="feature-icon">
+                    📐
+                </div>
+
+                <h4>
+                    Flood Barrier Estimation
+                </h4>
+
+                <p class="text-muted">
+                    Calculate required barrier height, volume,
+                    material quantity and estimated project cost.
+                </p>
+
+                <a
+                    href="{% url 'estimation' %}"
+                    class="btn btn-primary"
+                >
+                    Start Estimation
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROJECT MANAGEMENT -->
+
+        <div class="col-md-4">
+
+            <div class="card feature-card shadow-sm text-center p-4">
+
+                <div class="feature-icon">
+                    🏗️
+                </div>
+
+                <h4>
+                    Project Management
+                </h4>
+
+                <p class="text-muted">
+                    Create and manage dam and flood barrier
+                    projects with their locations.
+                </p>
+
+                <a
+                    href="{% url 'projects' %}"
+                    class="btn btn-success"
+                >
+                    Manage Projects
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- MATERIAL MANAGEMENT -->
+
+        <div class="col-md-4">
+
+            <div class="card feature-card shadow-sm text-center p-4">
+
+                <div class="feature-icon">
+                    🧱
+                </div>
+
+                <h4>
+                    Material Management
+                </h4>
+
+                <p class="text-muted">
+                    Maintain material information including
+                    density, unit and unit price.
+                </p>
+
+                <a
+                    href="{% url 'materials' %}"
+                    class="btn btn-warning"
+                >
+                    Manage Materials
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ABOUT SYSTEM -->
+
+<div class="container mt-5">
+
+    <div class="info-box">
+
+        <h3 class="section-title">
+            About the System
+        </h3>
+
+        <p>
+            The Water Dam Flood Barrier Estimation System is
+            designed to provide preliminary estimates for flood
+            barrier planning around dams, reservoirs, rivers and
+            other flood-prone areas.
+        </p>
+
+        <p>
+            The system uses project information, water level,
+            ground level, safety allowance, barrier dimensions,
+            material properties and additional project costs
+            to generate an estimation.
+        </p>
+
+        <div class="alert alert-info mb-0">
+
+            <strong>Engineering Note:</strong>
+            The results generated by this system are preliminary
+            educational/planning estimates. They should not be
+            considered a substitute for professional hydraulic
+            or structural engineering analysis.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- QUICK ACCESS -->
+
+<div class="container mt-5">
+
+    <div class="text-center mb-4">
+
+        <h2 class="section-title">
+            Quick Access
+        </h2>
+
+    </div>
+
+    <div class="row g-3">
+
+        <div class="col-md-3">
+
+            <a
+                href="{% url 'history' %}"
+                class="btn btn-outline-primary w-100 p-3"
+            >
+                📋 Estimation History
+            </a>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="btn btn-outline-success w-100 p-3"
+            >
+                📊 Dashboard
+            </a>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <a
+                href="{% url 'projects' %}"
+                class="btn btn-outline-warning w-100 p-3"
+            >
+                🏗️ Projects
+            </a>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <a
+                href="{% url 'materials' %}"
+                class="btn btn-outline-dark w-100 p-3"
+            >
+                🧱 Materials
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer class="footer text-center">
+
+    <div class="container">
+
+        <p class="mb-1">
+            <strong>
+                Water Dam Flood Barrier Estimation System
+            </strong>
+        </p>
+
+        <p class="mb-0">
+            MCA Academic Project | Developed using Python & Django
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+</html>

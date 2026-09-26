@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Delete Project - Water Dam Flood Barrier</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            background-color: #f4f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #dc3545, #a71d2a);
+            color: white;
+            padding: 45px 20px;
+            border-radius: 0 0 25px 25px;
+        }
+
+        .header-icon {
+            font-size: 50px;
+        }
+
+        .delete-card {
+            border: none;
+            border-radius: 20px;
+        }
+
+        .warning-box {
+            border-radius: 15px;
+        }
+
+        .project-details {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand"
+            href="{% url 'home' %}"
+        >
+            🌊 Water Dam Flood Barrier
+        </a>
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+        >
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarMenu"
+        >
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'home' %}"
+                    >
+                        Home
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'estimation' %}"
+                    >
+                        New Estimation
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'history' %}"
+                    >
+                        History
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'dashboard' %}"
+                    >
+                        Dashboard
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link active"
+                        href="{% url 'projects' %}"
+                    >
+                        Projects
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'materials' %}"
+                    >
+                        Materials
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- PAGE HEADER -->
+
+<section class="page-header text-center">
+
+    <div class="container">
+
+        <div class="header-icon">
+            🗑️
+        </div>
+
+
+        <h1 class="fw-bold">
+            Delete Project
+        </h1>
+
+
+        <p class="mb-0">
+            Confirm before permanently deleting this project.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- MAIN CONTENT -->
+
+<div class="container mt-5 mb-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+
+            <!-- DELETE CARD -->
+
+            <div class="card delete-card shadow-sm">
+
+                <div class="card-body p-4 p-md-5 text-center">
+
+
+                    <div style="font-size: 65px;">
+                        ⚠️
+                    </div>
+
+
+                    <h3 class="fw-bold text-danger mt-3">
+                        Are you sure?
+                    </h3>
+
+
+                    <p class="text-muted">
+
+                        You are about to permanently delete the
+                        following project.
+
+                    </p>
+
+
+
+                    <!-- PROJECT DETAILS -->
+
+                    <div class="project-details p-4 text-start mt-4 mb-4">
+
+                        <div class="mb-3">
+
+                            <small class="text-muted">
+                                Project Name
+                            </small>
+
+                            <h5 class="fw-bold mb-0">
+                                {{ project.project_name }}
+                            </h5>
+
+                        </div>
+
+
+                        <div>
+
+                            <small class="text-muted">
+                                Location
+                            </small>
+
+                            <h6 class="mb-0">
+                                📍 {{ project.location }}
+                            </h6>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- WARNING -->
+
+                    <div class="alert alert-danger warning-box text-start">
+
+                        <strong>Warning:</strong>
+
+                        Deleting this project may also delete its
+                        related estimation records because the
+                        project is connected to estimation data.
+
+                        <br><br>
+
+                        <strong>
+                            This action cannot be undone.
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- FORM -->
+
+                    <form method="post">
+
+                        {% csrf_token %}
+
+
+                        <div class="d-flex justify-content-center gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger btn-lg"
+                            >
+                                🗑️ Yes, Delete Project
+                            </button>
+
+
+                            <a
+                                href="{% url 'projects' %}"
+                                class="btn btn-secondary btn-lg"
+                            >
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ENGINEERING NOTE -->
+
+            <div class="alert alert-info mt-4">
+
+                <strong>Engineering Note:</strong>
+
+                Project records are used for preliminary
+                educational/planning estimates and should be
+                maintained carefully for project tracking.
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- FOOTER -->
+
+<footer class="bg-dark text-white text-center p-4">
+
+    <p class="mb-1 fw-bold">
+        Water Dam Flood Barrier Estimation System
+    </p>
+
+    <p class="mb-0">
+        MCA Academic Project | Python & Django
+    </p>
+
+</footer>
+
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Projects - Water Dam Flood Barrier</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            background-color: #f4f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #198754, #146c43);
+            color: white;
+            padding: 45px 20px;
+            border-radius: 0 0 25px 25px;
+        }
+
+        .header-icon {
+            font-size: 50px;
+        }
+
+        .project-card {
+            border: none;
+            border-radius: 18px;
+            transition: 0.2s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-icon {
+            font-size: 42px;
+        }
+
+        .empty-box {
+            background: white;
+            border-radius: 18px;
+            padding: 60px 20px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand"
+            href="{% url 'home' %}"
+        >
+            🌊 Water Dam Flood Barrier
+        </a>
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+        >
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarMenu"
+        >
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'home' %}"
+                    >
+                        Home
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'estimation' %}"
+                    >
+                        New Estimation
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'history' %}"
+                    >
+                        History
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'dashboard' %}"
+                    >
+                        Dashboard
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link active"
+                        href="{% url 'projects' %}"
+                    >
+                        Projects
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'materials' %}"
+                    >
+                        Materials
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="/admin/"
+                    >
+                        Admin
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- PAGE HEADER -->
+
+<section class="page-header text-center">
+
+    <div class="container">
+
+        <div class="header-icon">
+            🏗️
+        </div>
+
+
+        <h1 class="fw-bold">
+            Project Management
+        </h1>
+
+
+        <p class="mb-0">
+            Create, view and manage flood barrier projects.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- MAIN CONTENT -->
+
+<div class="container mt-5 mb-5">
+
+
+    <!-- HEADER ACTION -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h3 class="fw-bold mb-1">
+                📁 Your Projects
+            </h3>
+
+            <p class="text-muted mb-0">
+                Manage all projects in the estimation system.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'add_project' %}"
+            class="btn btn-success btn-lg"
+        >
+            ➕ Add New Project
+        </a>
+
+    </div>
+
+
+
+    {% if projects %}
+
+
+    <!-- PROJECT CARDS -->
+
+    <div class="row g-4">
+
+        {% for project in projects %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card project-card shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+
+                    <div class="text-center mb-3">
+
+                        <div class="project-icon">
+                            🏗️
+                        </div>
+
+                    </div>
+
+
+                    <h4 class="fw-bold text-center">
+
+                        {{ project.project_name }}
+
+                    </h4>
+
+
+                    <p class="text-muted text-center">
+
+                        📍 {{ project.location }}
+
+                    </p>
+
+
+                    <hr>
+
+
+                    <p class="mb-2">
+
+                        <strong>
+                            Created:
+                        </strong>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {{ project.created_date|date:"d M Y, h:i A" }}
+
+                        </span>
+
+                    </p>
+
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="d-grid gap-2">
+
+                        <a
+                            href="{% url 'project_summary' project.id %}"
+                            class="btn btn-primary"
+                        >
+                            📊 View Summary
+                        </a>
+
+
+                        <div class="row g-2">
+
+                            <div class="col-6">
+
+                                <a
+                                    href="{% url 'edit_project' project.id %}"
+                                    class="btn btn-warning w-100"
+                                >
+                                    ✏️ Edit
+                                </a>
+
+                            </div>
+
+
+                            <div class="col-6">
+
+                                <a
+                                    href="{% url 'delete_project' project.id %}"
+                                    class="btn btn-danger w-100"
+                                >
+                                    🗑️ Delete
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- EMPTY STATE -->
+
+    <div class="empty-box shadow-sm text-center">
+
+        <div style="font-size: 65px;">
+            🏗️
+        </div>
+
+
+        <h3 class="mt-3">
+            No Projects Found
+        </h3>
+
+
+        <p class="text-muted">
+
+            You have not created any projects yet.
+
+        </p>
+
+
+        <a
+            href="{% url 'add_project' %}"
+            class="btn btn-success btn-lg"
+        >
+            ➕ Create Your First Project
+        </a>
+
+    </div>
+
+    {% endif %}
+
+
+
+    <!-- ENGINEERING NOTE -->
+
+    <div class="alert alert-info mt-5">
+
+        <strong>Engineering Note:</strong>
+
+        Project information is used for preliminary flood
+        barrier estimation and educational planning purposes.
+        Actual engineering design should be verified by qualified
+        hydraulic and structural professionals.
+
+    </div>
+
+</div>
+
+
+
+<!-- FOOTER -->
+
+<footer class="bg-dark text-white text-center p-4">
+
+    <p class="mb-1 fw-bold">
+        Water Dam Flood Barrier Estimation System
+    </p>
+
+    <p class="mb-0">
+        MCA Academic Project | Python & Django
+    </p>
+
+</footer>
+
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Django
+db.sqlite3
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+# Other IDE files
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Generated files
+staticfiles/
+media/
+
+# Test and coverage files
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Backup files
+*.zip
